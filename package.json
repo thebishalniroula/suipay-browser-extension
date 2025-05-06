@@ -26,10 +26,10 @@
     "@hookform/resolvers": "^5.0.1",
     "@mysten/dapp-kit": "^0.16.2",
     "@mysten/sui": "^1.29.1",
-    "@mysten/sui.js": "^0.54.1",
     "@noble/ed25519": "^2.2.3",
     "@rollup/plugin-inject": "^5.0.5",
     "@scure/bip39": "^1.6.0",
+    "@tailwindcss/vite": "^4.1.5",
     "@tanstack/react-query": "^5.75.4",
     "bip39": "^3.1.0",
     "blakejs": "^1.2.1",
@@ -40,7 +40,9 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.56.2",
     "react-icons": "^5.5.0",
+    "tailwind": "^4.0.0",
     "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^4.1.5",
     "zod": "^3.24.4"
   },
   "devDependencies": {

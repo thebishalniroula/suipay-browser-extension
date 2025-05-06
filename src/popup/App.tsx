@@ -69,14 +69,7 @@ const App = () => {
   const { showFloatingNav, component: PageComponent } = getPageComponents(!!walletData)[page]
 
   return (
-    <main
-      style={{
-        minWidth: '360px',
-        minHeight: '600px',
-        backgroundColor: 'black',
-        color: 'white',
-      }}
-    >
+    <main className="min-w-[360px] min-h-[600px] bg-black text-white">
       <PageComponent page={page} setPage={setPage} />
       {showFloatingNav && <FloatingNav active={page} setActive={setPage} />}
     </main>
