@@ -7,6 +7,9 @@ import SendSuiPage from './pages/send-sui'
 import TempDepositAddressPage from './pages/temp-deposit-address'
 import FloatingNav from './components/floating-nav'
 import SubscriptionsPage from './pages/subscriptions'
+import { useStorage } from '../hooks/use-storage'
+import { EncryptedData } from '../utils/encryption'
+import { STORAGE_KEYS } from '../config/storage-keys'
 
 const pages = [
   'home',
@@ -19,15 +22,13 @@ const pages = [
 
 export type PageName = (typeof pages)[number]
 
-const isAddressSetup = true
-
-const PageComponents: Record<
+const getPageComponents: (isAddressSetup: boolean) => Record<
   PageName,
   {
     component: PageComponent
     showFloatingNav?: boolean
   }
-> = {
+> = (isAddressSetup) => ({
   home: {
     component: isAddressSetup ? DashboardPage : HomePage,
     showFloatingNav: isAddressSetup,
@@ -48,12 +49,25 @@ const PageComponents: Record<
   subscriptions: {
     component: SubscriptionsPage,
   },
+})
+
+export type WalletEssentials = {
+  plain: {
+    address: string
+    publicKey: string
+  }
+  encrypted: {
+    privateKey: EncryptedData
+    mnemonic: EncryptedData
+  }
 }
 
 const App = () => {
   const [page, setPage] = useState<PageName>('home')
 
-  const { showFloatingNav, component: PageComponent } = PageComponents[page]
+  const [walletData] = useStorage<WalletEssentials | null>(STORAGE_KEYS.WALLET_ESSENTIALS, null)
+  const { showFloatingNav, component: PageComponent } = getPageComponents(!!walletData)[page]
+
   return (
     <main
       style={{

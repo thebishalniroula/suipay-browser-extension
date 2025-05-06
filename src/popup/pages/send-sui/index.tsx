@@ -1,4 +1,3 @@
-import React from 'react'
 import Header from '../../components/header'
 import { PageComponent } from '../../type'
 import Input from '../../components/input'

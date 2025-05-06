@@ -2,27 +2,21 @@ import React from 'react'
 import Header from '../../components/header'
 import { PageComponent } from '../../type'
 import { Button } from '../../components/button'
-import Input from '../../components/input'
-
-const MOCK_SEED_PHRASE =
-  'abandon ability able about above absent absorb abstract absurd abuse access accident'
+import CreateWalletForm from './create-wallet-form'
+import { useStorage } from '../../../hooks/use-storage'
+import { STORAGE_KEYS } from '../../../config/storage-keys'
+import { WalletEssentials } from '../../App'
 
 const CreateAccount: PageComponent = (props) => {
-  const [seedPhrase, setSeedPhrase] = React.useState<Array<string>>([])
+  const [walletData] = useStorage<WalletEssentials | null>(STORAGE_KEYS.WALLET_ESSENTIALS, null)
 
-  const [walletReady, setWalletReady] = React.useState(false)
+  const [seedPhrase, setSeedPhrase] = React.useState({
+    phrase: '',
+    acknowledged: false,
+  })
 
-  const handleSubmit = () => {
-    // Handle account creation logic here
-    console.log('Account created')
-    console.log('Seed Phrase:', seedPhrase)
-    setSeedPhrase(MOCK_SEED_PHRASE.split(' '))
-  }
-
-  const handleSeedPhraseSubmit = () => {
-    // Handle seed phrase submission logic here
-    console.log('Seed Phrase submitted')
-    setWalletReady(true)
+  const handleSeedPhraseAcknowledged = () => {
+    setSeedPhrase({ ...seedPhrase, acknowledged: true })
   }
 
   return (
@@ -32,38 +26,23 @@ const CreateAccount: PageComponent = (props) => {
         height: '600px',
       }}
     >
-      {!walletReady && (
+      {!seedPhrase.acknowledged && (
         <Header
-          title={seedPhrase.length ? 'Recovery Phrase' : 'Create Wallet'}
-          withBackButton={!seedPhrase.length}
+          title={walletData ? 'Recovery Phrase' : 'Create Wallet'}
+          withBackButton={!walletData}
           onBackButtonClick={() => {
             props.setPage('home')
           }}
         />
       )}
       {/* First step -- ask for username and password */}
-      {!walletReady && !seedPhrase.length && (
-        <div className="flex-1">
-          <div className="flex flex-col h-full py-5">
-            <div className="flex-1 flex flex-col items-center justify-center gap-2">
-              <div>
-                <h2 className="text-2xl text-center mb-1">Create a password</h2>
-                <p className="text-center text-md">You will use this to unlock your wallet.</p>
-              </div>
-
-              <Input placeholder="Password" />
-              <Input placeholder="Confirm Password" />
-              <p className="text-red-500">Passwords do not match.</p>
-            </div>
-
-            <Button variant="primary" onClick={handleSubmit}>
-              Continue
-            </Button>
-          </div>
-        </div>
+      {!seedPhrase.acknowledged && !walletData && (
+        <CreateWalletForm
+          setSeedPhrase={(phrase) => setSeedPhrase({ phrase, acknowledged: false })}
+        />
       )}
       {/* Second step -- show seed phrase */}
-      {!walletReady && !!seedPhrase.length && (
+      {!seedPhrase.acknowledged && !!walletData && (
         <div className="flex-1">
           <div className="flex flex-col h-full py-5 gap-3">
             <div className="p-3 text-center">
@@ -73,7 +52,7 @@ const CreateAccount: PageComponent = (props) => {
               </p>
             </div>
             <div className="grid grid-cols-3 gap-2">
-              {seedPhrase.map((word, index) => (
+              {seedPhrase.phrase.split(' ').map((word, index) => (
                 <div
                   key={index}
                   className="border border-white/10 rounded-lg p-2 text-center text-white h-10"
@@ -82,13 +61,13 @@ const CreateAccount: PageComponent = (props) => {
                 </div>
               ))}
             </div>
-            <Button variant="primary" onClick={handleSeedPhraseSubmit} className="mt-auto">
+            <Button variant="primary" onClick={handleSeedPhraseAcknowledged} className="mt-auto">
               Continue
             </Button>
           </div>
         </div>
       )}
-      {walletReady && (
+      {seedPhrase.acknowledged && (
         <div className="flex-1">
           <div className="flex flex-col h-full py-5 gap-3">
             <div className="p-3 text-center">
