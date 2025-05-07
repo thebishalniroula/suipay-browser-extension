@@ -10,6 +10,7 @@ import SubscriptionsPage from './pages/subscriptions'
 import { useStorage } from '../hooks/use-storage'
 import { EncryptedData } from '../utils/encryption'
 import { STORAGE_KEYS } from '../config/storage-keys'
+import Background from './components/bg'
 
 const pages = [
   'home',
@@ -48,6 +49,7 @@ const getPageComponents: (isAddressSetup: boolean) => Record<
   },
   subscriptions: {
     component: SubscriptionsPage,
+    showFloatingNav: true,
   },
 })
 
@@ -69,7 +71,7 @@ const App = () => {
   const { showFloatingNav, component: PageComponent } = getPageComponents(!!walletData)[page]
 
   return (
-    <main className="min-w-[360px] min-h-[600px] bg-black text-white">
+    <main className="w-[360px] min-h-[600px] bg-[#020304] text-white">
       <PageComponent page={page} setPage={setPage} />
       {showFloatingNav && <FloatingNav active={page} setActive={setPage} />}
     </main>

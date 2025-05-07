@@ -59,14 +59,25 @@ const CreateWalletForm = (props: CreateWalletFormProps) => {
   return (
     <form className="flex-1" onSubmit={pwForm.handleSubmit(handleSubmit)}>
       <div className="flex flex-col h-full py-5">
-        <div className="flex-1 flex flex-col items-center justify-center gap-2">
+        <div className="flex-1 flex flex-col items-center justify-center gap-8">
           <div>
-            <h2 className="text-2xl text-center mb-1">Create a password</h2>
-            <p className="text-center text-md">You will use this to unlock your wallet.</p>
+            <h2 className="text-2xl text-center mb-1 font-semibold">Create a password</h2>
+            <p className="text-center text-base">You will use this to unlock your wallet.</p>
           </div>
-
-          <Input placeholder="Password" {...pwForm.register('password')} />
-          <Input placeholder="Confirm Password" {...pwForm.register('confirmPassword')} />
+          <div className="flex flex-col gap-2 w-full">
+            <Input
+              type="password"
+              placeholder="Password"
+              {...pwForm.register('password')}
+              autoComplete="off"
+            />
+            <Input
+              type="password"
+              placeholder="Confirm Password"
+              {...pwForm.register('confirmPassword')}
+              autoComplete="off"
+            />
+          </div>
           {pwForm.formState.errors?.confirmPassword && (
             <p className="text-red-500">{pwForm.formState.errors.confirmPassword.message}</p>
           )}

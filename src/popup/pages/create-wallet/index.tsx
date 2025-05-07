@@ -6,6 +6,8 @@ import CreateWalletForm from './create-wallet-form'
 import { useStorage } from '../../../hooks/use-storage'
 import { STORAGE_KEYS } from '../../../config/storage-keys'
 import { WalletEssentials } from '../../App'
+import Background from '../../components/bg'
+import InfoBox from '../../components/info-box'
 
 const CreateAccount: PageComponent = (props) => {
   const [walletData] = useStorage<WalletEssentials | null>(STORAGE_KEYS.WALLET_ESSENTIALS, null)
@@ -26,9 +28,10 @@ const CreateAccount: PageComponent = (props) => {
         height: '600px',
       }}
     >
+      <Background className="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-[0] pointer-events-none" />
       {!seedPhrase.acknowledged && (
         <Header
-          title={walletData ? 'Recovery Phrase' : 'Create Wallet'}
+          title={walletData ? 'Recovery Phrase' : 'Create Account'}
           withBackButton={!walletData}
           onBackButtonClick={() => {
             props.setPage('home')
@@ -44,18 +47,16 @@ const CreateAccount: PageComponent = (props) => {
       {/* Second step -- show seed phrase */}
       {!seedPhrase.acknowledged && !!walletData && (
         <div className="flex-1">
-          <div className="flex flex-col h-full py-5 gap-3">
-            <div className="p-3 text-center">
-              <h3 className="text-lg text-red-300">Do not share your Recovery phrase!</h3>
-              <p className="text-md">
-                If someone has your Recovery Phrase they will have full control of your wallet.
-              </p>
-            </div>
+          <div className="flex flex-col h-full py-5 gap-5">
+            <InfoBox
+              title="Do not share your Recovery phrase!"
+              description="If someone has your Recovery Phrase they will have full control of your wallet."
+            />
             <div className="grid grid-cols-3 gap-2">
               {seedPhrase.phrase.split(' ').map((word, index) => (
                 <div
                   key={index}
-                  className="border border-white/10 rounded-lg p-2 text-center text-white h-10"
+                  className="border border-white/25 rounded-[10px] px-3 text-center text-white h-[42px] flex items-center"
                 >
                   {index + 1}. {word}
                 </div>

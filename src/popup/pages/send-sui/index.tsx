@@ -20,7 +20,7 @@ const SendSuiPage: PageComponent = (props) => {
       <div className="flex flex-col gap-2">
         <Input placeholder="Recipient’s Wallet Address" />
         <Input placeholder="Amount" />
-        <p className="text-right">Available: 55.544 SUI</p>
+        <p className="text-right font-normal">Available: 55.544 SUI</p>
       </div>
       <div className="mt-auto flex gap-2 py-4">
         <Button variant="secondary" className="flex-1">

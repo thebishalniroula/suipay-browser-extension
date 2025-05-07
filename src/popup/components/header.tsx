@@ -22,21 +22,22 @@ const Header = (props: HeaderProps) => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
             fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
           >
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
+              d="M17.5 21L10.5 14L17.5 7"
+              stroke="#ADC8DF"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
           </svg>
         </button>
       )}
-      <h1 className="text-xl font-bold text-center w-full">{props.title}</h1>
+      <h1 className="text-2xl font-medium text-center w-full tracking-[-0.408px]">{props.title}</h1>
     </div>
   )
 }

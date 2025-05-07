@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from '../../components/header'
 import { PageComponent } from '../../type'
+import InfoBox from '../../components/info-box'
 
 const MOCK_ADDRESS = '0x0000000000000000000000000000000000000000'
 
@@ -14,12 +15,10 @@ const TempDepositAddressPage: PageComponent = (props) => {
           props.setPage('home')
         }}
       />
-      <div className="p-2 text-center">
-        <p className="text-red-500">This address is valid for 4:59</p>
-        <p>
-          This is a smart contract address, its not permanent. Address refresh in every 5 minutes
-        </p>
-      </div>
+      <InfoBox
+        title="Valid for 4:59"
+        description="This is a temporary address that sends funds to your smart contract wallet."
+      />
       <div
         className="bg-gray-100 mx-auto flex items-center justify-center text-black"
         style={{
@@ -29,8 +28,8 @@ const TempDepositAddressPage: PageComponent = (props) => {
       >
         QR CODE
       </div>
-      <p className="text-white tex-lg text-center">{MOCK_ADDRESS}</p>
-      <div className="bg-purple-300 text-black rounded-md py-4 text-md text-center">
+      <p className="text-white tex-base text-center break-words font-medium">{MOCK_ADDRESS}</p>
+      <div className="bg-[#7772F833] text-white rounded-2xl p-4 text-base font-medium text-center w-fit mx-auto">
         Copy Address
       </div>
     </div>

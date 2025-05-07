@@ -4,18 +4,18 @@ import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react'
 import { cn } from '../../utils/cn'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none gap-2',
+  'inline-flex items-center justify-center rounded-[16px] text-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none gap-2 cursor-pointer',
   {
     variants: {
       variant: {
-        primary: 'bg-blue-600 text-white hover:bg-blue-700',
-        secondary: 'border border-blue-600 text-blue-600 hover:bg-blue-50',
-        outline: 'border border-blue-600 text-blue-600 hover:bg-blue-50',
+        primary: 'bg-[#7E7AF2] text-black hover:bg-[#7a76da]',
+        secondary: 'bg-[#CFC4E7] text-black hover:bg-[#b0a5c7]',
+        outline: 'border border-white text-white hover:bg-[#7E7AF2]',
       },
       size: {
-        sm: 'h-8 px-3 text-xs',
-        md: 'h-10 px-4 text-sm',
-        lg: 'h-12 px-6 text-base',
+        sm: 'h-[45px] px-4',
+        md: 'h-[55px] px-6',
+        lg: 'h-[71px] px-[35px] rounded-[26.591px]',
       },
     },
     defaultVariants: {
