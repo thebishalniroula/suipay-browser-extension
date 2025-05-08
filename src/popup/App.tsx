@@ -13,6 +13,7 @@ import { STORAGE_KEYS } from '../config/storage-keys'
 import Background from './components/bg'
 import { Toaster } from 'react-hot-toast'
 import SettingsPage from './pages/settings'
+import ConfirmationPage from './pages/transaction-confirmation'
 
 const pages = [
   'home',
@@ -45,7 +46,6 @@ const getPageComponents: (isAddressSetup: boolean) => Record<
   'temp-deposit-address': {
     component: TempDepositAddressPage,
   },
-
   settings: {
     component: SettingsPage,
     showFloatingNav: true,
@@ -73,13 +73,21 @@ const App = () => {
   const [walletData] = useStorage<WalletEssentials | null>(STORAGE_KEYS.WALLET_ESSENTIALS, null)
   const { showFloatingNav, component: PageComponent } = getPageComponents(!!walletData)[page]
 
+  const url = new URLSearchParams(window.location.search)
+  const productId = url.get('action')
+
   return (
     <main className="w-[360px] min-h-[600px] bg-[#020304] text-white">
       {!!walletData && (
         <Background className="fixed -bottom-[10%] z-[0] pointer-events-none" width={400} />
       )}
-      <PageComponent page={page} setPage={setPage} />
-      {showFloatingNav && <FloatingNav active={page} setActive={setPage} />}
+      {productId && <ConfirmationPage />}
+      {!productId && (
+        <>
+          <PageComponent page={page} setPage={setPage} />
+          {showFloatingNav && <FloatingNav active={page} setActive={setPage} />}
+        </>
+      )}
       <Toaster />
     </main>
   )

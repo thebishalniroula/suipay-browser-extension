@@ -36,12 +36,12 @@ export default defineManifest({
 
   // Injects scripts into webpages matching the listed URLs.
   // This script runs in the context of the visited page (not the extension).
-  // content_scripts: [
-  //   {
-  //     matches: ['http://*/*', 'https://*/*'],
-  //     js: ['src/contentScript/index.ts'],
-  //   },
-  // ],
+  content_scripts: [
+    {
+      matches: ['http://*/*', 'https://*/*'],
+      js: ['src/contentScript/index.ts'],
+    },
+  ],
 
   // Registers a side panel (a new Chrome feature) to show custom content in the browser’s side panel.
   // side_panel: {

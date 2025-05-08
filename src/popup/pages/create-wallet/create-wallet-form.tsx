@@ -65,6 +65,7 @@ const CreateWalletForm = (props: CreateWalletFormProps) => {
             <p className="text-center text-base">You will use this to unlock your wallet.</p>
           </div>
           <div className="flex flex-col gap-2 w-full">
+            {/* <Input type="email" placeholder="Email" {...pwForm.register('email')}/> */}
             <Input
               type="password"
               placeholder="Password"
