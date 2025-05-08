@@ -31,6 +31,7 @@
     "@scure/bip39": "^1.6.0",
     "@tailwindcss/vite": "^4.1.5",
     "@tanstack/react-query": "^5.75.4",
+    "axios": "^1.9.0",
     "bip39": "^3.1.0",
     "blakejs": "^1.2.1",
     "buffer": "^6.0.3",

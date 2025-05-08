@@ -8,9 +8,11 @@ import { encryptData } from '../../../utils/encryption'
 import { WalletEssentials } from '../../App'
 import { STORAGE_KEYS } from '../../../config/storage-keys'
 import { useStorage } from '../../../hooks/use-storage'
+import useSignUp from '../../../hooks/use-sign-up'
 
 const pwSchema = z
   .object({
+    email: z.string().email(),
     password: z.string(),
     confirmPassword: z.string(),
   })
@@ -25,6 +27,8 @@ type CreateWalletFormProps = {
   setSeedPhrase: (seedPhrase: string) => void
 }
 const CreateWalletForm = (props: CreateWalletFormProps) => {
+  const signUpMutation = useSignUp()
+
   const pwForm = useForm<PasswordForm>({
     resolver: zodResolver(pwSchema),
   })
@@ -43,10 +47,17 @@ const CreateWalletForm = (props: CreateWalletFormProps) => {
     const encryptedPrivateKey = await encryptData(privateKey, data.password)
     const encryptedMnemonic = await encryptData(mnemonic, data.password)
 
+    const res = await signUpMutation.mutateAsync({
+      email: data.email,
+      password: data.password,
+      id: address,
+    })
+
     setWalletEssentials({
       plain: {
         address,
         publicKey: keyPair.getPublicKey().toBase64(),
+        accessToken: res.data.accessToken,
       },
       encrypted: {
         privateKey: encryptedPrivateKey,
@@ -65,7 +76,7 @@ const CreateWalletForm = (props: CreateWalletFormProps) => {
             <p className="text-center text-base">You will use this to unlock your wallet.</p>
           </div>
           <div className="flex flex-col gap-2 w-full">
-            {/* <Input type="email" placeholder="Email" {...pwForm.register('email')}/> */}
+            <Input type="email" placeholder="Email" {...pwForm.register('email')} />
             <Input
               type="password"
               placeholder="Password"
@@ -84,7 +95,9 @@ const CreateWalletForm = (props: CreateWalletFormProps) => {
           )}
         </div>
 
-        <Button variant="primary">Continue</Button>
+        <Button disabled={signUpMutation.isPending} variant="primary">
+          {signUpMutation.isPending ? 'Creating...' : 'Continue'}
+        </Button>
       </div>
     </form>
   )

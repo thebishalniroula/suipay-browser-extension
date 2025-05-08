@@ -60,6 +60,7 @@ export type WalletEssentials = {
   plain: {
     address: string
     publicKey: string
+    accessToken: string
   }
   encrypted: {
     privateKey: EncryptedData
