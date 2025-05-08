@@ -4,13 +4,13 @@ import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react'
 import { cn } from '../../utils/cn'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-[16px] text-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none gap-2 cursor-pointer',
+  'inline-flex items-center justify-center rounded-[16px] text-lg font-medium transition-colors focus:outline-none disabled:opacity-50 disabled:pointer-events-none gap-2 cursor-pointer',
   {
     variants: {
       variant: {
-        primary: 'bg-[#7E7AF2] text-black hover:bg-[#7a76da]',
-        secondary: 'bg-[#CFC4E7] text-black hover:bg-[#b0a5c7]',
-        outline: 'border border-white text-white hover:bg-[#7E7AF2]',
+        primary: 'bg-[#7E7AF2] text-white hover:bg-[#7a76da] font-normal',
+        secondary: 'bg-[#CFC4E7] text-black hover:bg-[#b0a5c7] font-normal',
+        outline: 'border border-white text-white hover:bg-[#7E7AF2] font-normal',
       },
       size: {
         sm: 'h-[45px] px-4',

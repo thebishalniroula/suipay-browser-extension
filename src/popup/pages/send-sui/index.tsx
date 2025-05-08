@@ -14,8 +14,8 @@ const SendSuiPage: PageComponent = (props) => {
         }}
         className="mb-10"
       />
-      <div className="h-24 w-24 bg-gray-400 text-white rounded-full mb-8 flex justify-center items-center mx-auto">
-        SUI LOGO
+      <div className="h-24 w-24 rounded-full mb-8 flex justify-center items-center mx-auto relative">
+        <img src="img/sui-logo.png" className="absolute inset-0 object-center" />
       </div>
       <div className="flex flex-col gap-2">
         <Input placeholder="Recipient’s Wallet Address" />

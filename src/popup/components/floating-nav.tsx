@@ -20,8 +20,9 @@ const FloatingNav = (props: FloatingNavProps) => {
   return (
     <div
       className={cn(
-        'border-[0.5px] border-[#153048] flex fixed bottom-3 left-1/2 transform -translate-x-1/2 rounded-full px-2 py-[6px] gap-[6px] bg-[#FFFFFF03]',
+        'border-[0.5px] border-[#153048] flex rounded-full px-2 py-[6px] gap-[6px] bg-[#FFFFFF03]',
         '[box-shadow:_0px_0px_5px_0px_#283961_inset]',
+        'fixed bottom-3 left-1/2 transform -translate-x-1/2 z-[1] backdrop-blur-[3px]',
       )}
     >
       <div

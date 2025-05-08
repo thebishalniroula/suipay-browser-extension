@@ -17,7 +17,7 @@ const Header = (props: HeaderProps) => {
     >
       {props.withBackButton && (
         <button
-          className="absolute top-1/2 transform -translate-y-1/2 text-white"
+          className="absolute top-1/2 transform -translate-y-1/2 text-white cursor-pointer"
           onClick={props.onBackButtonClick}
         >
           <svg

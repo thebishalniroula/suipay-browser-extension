@@ -11,6 +11,8 @@ import { useStorage } from '../hooks/use-storage'
 import { EncryptedData } from '../utils/encryption'
 import { STORAGE_KEYS } from '../config/storage-keys'
 import Background from './components/bg'
+import { Toaster } from 'react-hot-toast'
+import SettingsPage from './pages/settings'
 
 const pages = [
   'home',
@@ -45,7 +47,8 @@ const getPageComponents: (isAddressSetup: boolean) => Record<
   },
 
   settings: {
-    component: () => <div>Settings</div>,
+    component: SettingsPage,
+    showFloatingNav: true,
   },
   subscriptions: {
     component: SubscriptionsPage,
@@ -72,8 +75,12 @@ const App = () => {
 
   return (
     <main className="w-[360px] min-h-[600px] bg-[#020304] text-white">
+      {!!walletData && (
+        <Background className="fixed -bottom-[10%] z-[0] pointer-events-none" width={400} />
+      )}
       <PageComponent page={page} setPage={setPage} />
       {showFloatingNav && <FloatingNav active={page} setActive={setPage} />}
+      <Toaster />
     </main>
   )
 }

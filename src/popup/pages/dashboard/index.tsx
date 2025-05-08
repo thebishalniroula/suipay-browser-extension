@@ -7,6 +7,7 @@ import { WalletEssentials } from '../../App'
 import { STORAGE_KEYS } from '../../../config/storage-keys'
 import useGetBalance from '../../../hooks/use-get-balance'
 import SortIcon from '../../../icons/sort'
+import ArrowSlanted from '../../../icons/arrow-slanted'
 
 const Balance = () => {
   const [data] = useStorage<WalletEssentials | null>(STORAGE_KEYS.WALLET_ESSENTIALS, null)
@@ -31,7 +32,7 @@ const DashboardPage: PageComponent = (props) => {
       <div className="flex gap-2 pb-5 pt-4">
         <Button
           variant="primary"
-          size="lg"
+          size="md"
           leftIcon={<IoMdArrowDown />}
           className="flex-1"
           onClick={() => {
@@ -42,7 +43,7 @@ const DashboardPage: PageComponent = (props) => {
         </Button>
         <Button
           variant="secondary"
-          size="lg"
+          size="md"
           leftIcon={<IoMdArrowUp />}
           className="flex-1"
           onClick={() => {
@@ -57,9 +58,38 @@ const DashboardPage: PageComponent = (props) => {
           <p>Activity</p>
           <SortIcon />
         </div>
+        <div className="w-full flex flex-col gap-2">
+          <TransactionItem />
+          <TransactionItem />
+          <TransactionItem />
+          <TransactionItem />
+          <TransactionItem />
+          <TransactionItem />
+          <TransactionItem />
+        </div>
       </div>
     </div>
   )
 }
 
 export default DashboardPage
+
+const TransactionItem = () => {
+  return (
+    <div className="rounded-[30px] p-4 flex justify-between bg-[#FFFFFF05]">
+      <div className="flex gap-3">
+        <div className="h-[52px] w-[52px] rounded-2xl bg-[#7772F833] flex justify-center items-center">
+          <ArrowSlanted />
+        </div>
+        <div className="flex flex-col justify-between py-1">
+          <p className="font-medium ">Deposit</p>
+          <p className="text-sm text-[#ADC8DF] font-medium ">0x65rg2...32fd</p>
+        </div>
+      </div>
+      <div className="flex flex-col justify-between py-1 text-right">
+        <p className="text-[#3EF7B4] font-semibold">+50 SUI</p>
+        <p className="text-sm text-[#ADC8DF]">$155.44</p>
+      </div>
+    </div>
+  )
+}
