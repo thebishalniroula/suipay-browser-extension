@@ -37,16 +37,19 @@
     "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.1",
     "crypto-browserify": "^3.12.1",
+    "date-fns": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.56.2",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
     "react-qr-code": "^2.0.15",
+    "socket.io-client": "^4.8.1",
     "tailwind": "^4.0.0",
     "tailwind-merge": "^3.2.0",
     "tailwindcss": "^4.1.5",
-    "zod": "^3.24.4"
+    "zod": "^3.24.4",
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.26",

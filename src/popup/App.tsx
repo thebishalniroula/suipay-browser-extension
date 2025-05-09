@@ -8,12 +8,15 @@ import TempDepositAddressPage from './pages/temp-deposit-address'
 import FloatingNav from './components/floating-nav'
 import SubscriptionsPage from './pages/subscriptions'
 import { useStorage } from '../hooks/use-storage'
-import { EncryptedData } from '../utils/encryption'
+import { decryptData, EncryptedData } from '../utils/encryption'
 import { STORAGE_KEYS } from '../config/storage-keys'
 import Background from './components/bg'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import SettingsPage from './pages/settings'
 import ConfirmationPage from './pages/transaction-confirmation'
+import useGetBalance from '../hooks/use-get-balance'
+import { useDecryptSecretsStore } from '../store/secrets'
+import PasswordPrompt from './components/password-prompt'
 
 const pages = [
   'home',
@@ -61,6 +64,7 @@ export type WalletEssentials = {
     address: string
     publicKey: string
     accessToken: string
+    scwAddress: string
   }
   encrypted: {
     privateKey: EncryptedData
@@ -72,17 +76,35 @@ const App = () => {
   const [page, setPage] = useState<PageName>('home')
 
   const [walletData] = useStorage<WalletEssentials | null>(STORAGE_KEYS.WALLET_ESSENTIALS, null)
+
   const { showFloatingNav, component: PageComponent } = getPageComponents(!!walletData)[page]
 
   const url = new URLSearchParams(window.location.search)
   const productId = url.get('action')
 
+  const { privateKey, setPrivateKey } = useDecryptSecretsStore((state) => state)
+
+  if (productId && !walletData) {
+    setPage('create-wallet')
+  }
+
   return (
     <main className="w-[360px] min-h-[600px] bg-[#020304] text-white">
+      {!privateKey && (
+        <PasswordPrompt
+          onSubmit={(password) => {
+            decryptData(walletData!.encrypted.privateKey, password)
+              .then(setPrivateKey)
+              .catch(() => {
+                toast.error('Invalid password')
+              })
+          }}
+        />
+      )}
       {!!walletData && (
         <Background className="fixed -bottom-[10%] z-[0] pointer-events-none" width={400} />
       )}
-      {productId && <ConfirmationPage />}
+      {productId && <ConfirmationPage productId={productId} />}
       {!productId && (
         <>
           <PageComponent page={page} setPage={setPage} />
@@ -95,3 +117,7 @@ const App = () => {
 }
 
 export default App
+
+const ShowTransferGasToPrimaryWalletPopup = () => {
+  return <div></div>
+}

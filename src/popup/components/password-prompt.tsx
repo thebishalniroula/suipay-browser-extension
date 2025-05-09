@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export type PasswordPromptProps = {
-  onClose: () => void
+  onClose?: () => void
   onSubmit: (password: string) => void
 }
 
@@ -24,7 +24,7 @@ const PasswordPrompt = (props: PasswordPromptProps) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/30 flex justify-center items-center p-3 text-center">
+    <div className="fixed z-[1000] inset-0 bg-black/30 flex justify-center items-center p-3 text-center max-w-[360px]">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full h-fit p-5 flex flex-col gap-6 bg-[#333166] rounded-3xl items-center"
@@ -38,15 +38,17 @@ const PasswordPrompt = (props: PasswordPromptProps) => {
         <Input type="password" placeholder="Password" {...register('password')} />
         <p className="text-red-500">{formState.errors.password?.message}</p>
         <div className="flex gap-2 w-full">
-          <Button
-            variant="secondary"
-            size="md"
-            onClick={props.onClose}
-            className="flex-1"
-            type="button"
-          >
-            Not Now
-          </Button>
+          {props.onClose && (
+            <Button
+              variant="secondary"
+              size="md"
+              onClick={props.onClose}
+              className="flex-1"
+              type="button"
+            >
+              Not Now
+            </Button>
+          )}
           <Button variant="primary" size="md" className="flex-1" type="submit">
             Confirm
           </Button>

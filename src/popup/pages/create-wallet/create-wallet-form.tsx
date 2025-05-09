@@ -58,6 +58,7 @@ const CreateWalletForm = (props: CreateWalletFormProps) => {
         address,
         publicKey: keyPair.getPublicKey().toBase64(),
         accessToken: res.data.accessToken,
+        scwAddress: res.data.user.wallet,
       },
       encrypted: {
         privateKey: encryptedPrivateKey,

@@ -54,6 +54,7 @@ const SettingsPage: PageComponent = (props) => {
       onSubmit: () => {
         setWalletData(null)
         toast.success('Logged out successfully')
+        props.setPage('home')
       },
     })
   }
@@ -85,7 +86,7 @@ const SettingsPage: PageComponent = (props) => {
 
       <Header
         title={recoveryPhrase?.length > 0 ? 'Recovery Phrase' : 'Settings'}
-        withBackButton
+        withBackButton={!!recoveryPhrase}
         onBackButtonClick={() => {
           setRecoveryPhrase('')
         }}

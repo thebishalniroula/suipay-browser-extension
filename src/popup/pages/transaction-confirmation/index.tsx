@@ -1,4 +1,4 @@
-import React from 'react'
+import useGetProductDetails from '../../../hooks/use-get-product-details'
 import { Button } from '../../components/button'
 
 const DETAILS = {
@@ -9,9 +9,11 @@ const DETAILS = {
   Gas: '0.1 SUI',
 }
 
-const ConfirmationPage = () => {
+const ConfirmationPage = ({ productId }: { productId: string }) => {
+  const { data } = useGetProductDetails(productId)
+  console.log(data)
   return (
-    <div className="max-w-[360px] flex flex-col justify-between h-[100vh] p-5">
+    <div className="w-[360px] flex flex-col justify-between h-[100vh] p-5">
       <div className="flex flex-col gap-2">
         {/* Logos */}
         <div className="relative h-[70px] w-[70px]">
