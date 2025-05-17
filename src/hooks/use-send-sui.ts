@@ -1,6 +1,6 @@
 import React from 'react'
 import { Transaction } from '@mysten/sui/transactions'
-import { PackageId } from '../const/packages'
+import { Clock, PackageId } from '../const/packages'
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519'
 import { SuiClient } from '@mysten/sui/client'
 import { useSuiClient } from '@mysten/dapp-kit'
@@ -24,7 +24,7 @@ export const createSendSuiTxn = (amount: number, scwId: string, toAddress: strin
       txn.pure.u64(amount),
       txn.object(scwId),
       txn.pure.address(toAddress),
-      txn.object(`0x6`),
+      txn.object(Clock),
     ],
   })
   return txn

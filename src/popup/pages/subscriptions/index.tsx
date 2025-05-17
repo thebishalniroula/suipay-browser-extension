@@ -3,8 +3,11 @@ import Header from '../../components/header'
 import { Button } from '../../components/button'
 import { cn } from '../../../utils/cn'
 import ConfirmAction, { ConfirmActionProps } from '../../components/confirm-action'
+import useGetSubscriptions from '../../../hooks/use-get-subscriptions'
+import useUnsubscribe from '../../../hooks/use-unsubscribe'
 
 type SubscrptionItemProps = {
+  id: string
   logo: string
   title: string
   description: string
@@ -12,7 +15,13 @@ type SubscrptionItemProps = {
 }
 const SubscrptionItem = (props: SubscrptionItemProps) => {
   const [expanded, setExpanded] = React.useState(false)
-  const handleCancel = () => {}
+  const cancelSubscriptionMutation = useUnsubscribe()
+
+  const handleCancel = () => {
+    cancelSubscriptionMutation.mutate({
+      productId: props.id,
+    })
+  }
   return (
     <div
       className={cn(
@@ -74,6 +83,9 @@ const SubscriptionsPage = () => {
     ConfirmActionProps,
     'onClose'
   > | null>(null)
+
+  const { data: subscriptions } = useGetSubscriptions()
+
   return (
     <div className="px-3">
       <Header title="Subscriptions" />
@@ -82,6 +94,7 @@ const SubscriptionsPage = () => {
           <ConfirmAction {...cancellationProps} onClose={() => setCancellationProps(null)} />
         )}
         <SubscrptionItem
+          id="netflix1"
           title="Netflix"
           description="Renewal: 10 Oct, 2025"
           logo=""
@@ -89,6 +102,7 @@ const SubscriptionsPage = () => {
         />
 
         <SubscrptionItem
+          id="netflix2"
           title="Netflix"
           description="Renewal: 10 Oct, 2025"
           logo=""
@@ -96,6 +110,7 @@ const SubscriptionsPage = () => {
         />
 
         <SubscrptionItem
+          id="netflix3"
           title="Netflix"
           description="Renewal: 10 Oct, 2025"
           logo=""

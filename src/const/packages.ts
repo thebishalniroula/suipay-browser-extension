@@ -1,6 +1,7 @@
-export const PackageId = '0xeded876c9da9b13d4b7e0a2bdc39c6d43d065af30fcbfd378ea217b7e66b2921'
-export const WalletRegistry = '0xa02b12ef52db7a9711531b0b49a77c1d55a6c1f258ab640d27593088366ce3dd'
-export const ProductRegistry = '0xbf4bd78527f75ef51eb9d8f7315fb34463a8190315032a7b9b5e8f2ffda6673f'
-export const UpgradeCap = '0xbd5138245be16b1cbd06b3c1b36fe51e209f417ed833674121d242aab60a4792'
+export const PackageId = '0x3a5c35ebb64478995a70b21f382a75acc787a68c2659b3ecb97c25d8b529a923'
+export const WalletRegistry = '0xddd9517b371a1081e8c04a95b888b75ae684b8b0e21a7ff472e99ccc262704e5'
+export const ProductRegistry = '0xcb9e174c65b24e1b0f218135eeff2966577071a890c6bf1b9c2b37118b4712d4'
+export const UpgradeCap = '0x3d631fc6447d12a8fefbeec2df2dc0895bdfe6aac1c150b85c2a28c570544966'
 export const IndividualActiveSubscriptionRegistry =
-  '0x92ea6b045c52e6e047157a1a1dd145ad78d1016c9a3b5e900e4efeea9057a4a3'
+  '0x571252c967f4d6ffb1c3fb1aae02069d74ca3841d79096a7048839952a3dbc24'
+export const Clock = '0x6'

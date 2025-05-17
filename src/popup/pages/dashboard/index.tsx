@@ -10,6 +10,8 @@ import ArrowSlanted from '../../../icons/arrow-slanted'
 import useGetTransactionHistory, { Transaction } from '../../../hooks/use-get-transaction-history'
 import { MIST_PER_SUI } from '@mysten/sui/utils'
 import useSuiToUSD from '../../../hooks/use-sui-to-usd'
+import { cn } from '../../../utils/cn'
+import { format } from 'date-fns'
 
 const Balance = () => {
   const [data] = useStorage<WalletEssentials | null>(STORAGE_KEYS.WALLET_ESSENTIALS, null)
@@ -84,12 +86,25 @@ const TransactionItem = (props: { transaction: Transaction }) => {
           <ArrowSlanted className={!props.transaction.incoming ? 'rotate-180' : ''} />
         </div>
         <div className="flex flex-col justify-between py-1">
-          <p className="font-medium ">{props.transaction.incoming ? 'Deposit' : 'Withdraw'}</p>
-          <p className="text-sm text-[#ADC8DF] font-medium ">0x65rg2...32fd</p>
+          {/* <p className="font-medium ">{props.transaction.incoming ? 'Deposit' : 'Withdraw'}</p> */}
+          <p className="font-medium cursor-pointer" title={props.transaction.memo}>
+            {props.transaction.memo.slice(0, 18) + '...'}
+          </p>
+
+          {props.transaction.timestamp && (
+            <p className="text-sm text-[#ADC8DF] font-medium ">
+              {format(new Date(+props.transaction.timestamp / 1_000_00), 'MMM dd, yyyy')}
+            </p>
+          )}
         </div>
       </div>
       <div className="flex flex-col justify-between py-1 text-right">
-        <p className="text-[#3EF7B4] font-semibold">
+        <p
+          className={cn(
+            'text-[#3EF7B4] font-semibold',
+            !props.transaction.incoming && 'text-[#FF4D6B]',
+          )}
+        >
           {Number(+props.transaction.amount / Number(MIST_PER_SUI)).toFixed(2)} SUI
         </p>
         <p className="text-sm text-[#ADC8DF]">$ {data}</p>

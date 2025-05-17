@@ -14,13 +14,16 @@ import Background from './components/bg'
 import toast, { Toaster } from 'react-hot-toast'
 import SettingsPage from './pages/settings'
 import ConfirmationPage from './pages/transaction-confirmation'
-import useGetBalance from '../hooks/use-get-balance'
 import { useDecryptSecretsStore } from '../store/secrets'
 import PasswordPrompt from './components/password-prompt'
+import { z } from 'zod'
+import ImportWallet from './pages/import-wallet'
 
 const pages = [
   'home',
   'create-wallet',
+  'create-wallet',
+  'import-wallet',
   'send-sui',
   'temp-deposit-address',
   'subscriptions',
@@ -42,6 +45,9 @@ const getPageComponents: (isAddressSetup: boolean) => Record<
   },
   'create-wallet': {
     component: CreateAccount,
+  },
+  'import-wallet': {
+    component: ImportWallet,
   },
   'send-sui': {
     component: SendSuiPage,
@@ -80,17 +86,23 @@ const App = () => {
   const { showFloatingNav, component: PageComponent } = getPageComponents(!!walletData)[page]
 
   const url = new URLSearchParams(window.location.search)
-  const productId = url.get('action')
+  const productDataString = url.get('action')
+  const productData = z
+    .object({
+      product_id: z.string(),
+      ref_id: z.string(),
+    })
+    .safeParse(JSON.parse(productDataString ?? '{}'))
 
   const { privateKey, setPrivateKey } = useDecryptSecretsStore((state) => state)
 
-  if (productId && !walletData) {
-    setPage('create-wallet')
-  }
+  // if (productData.success && !walletData?.plain) {
+  //   setPage('create-wallet')
+  // }
 
   return (
     <main className="w-[360px] min-h-[600px] bg-[#020304] text-white">
-      {!privateKey && (
+      {!privateKey && walletData && (
         <PasswordPrompt
           onSubmit={(password) => {
             decryptData(walletData!.encrypted.privateKey, password)
@@ -104,13 +116,17 @@ const App = () => {
       {!!walletData && (
         <Background className="fixed -bottom-[10%] z-[0] pointer-events-none" width={400} />
       )}
-      {productId && <ConfirmationPage productId={productId} />}
-      {!productId && (
+      {productData.data?.product_id && productData.data.ref_id && (
+        <ConfirmationPage productId={productData.data.product_id} refId={productData.data.ref_id} />
+      )}
+      {
         <>
           <PageComponent page={page} setPage={setPage} />
-          {showFloatingNav && <FloatingNav active={page} setActive={setPage} />}
+          {showFloatingNav && !productData.data?.product_id && (
+            <FloatingNav active={page} setActive={setPage} />
+          )}
         </>
-      )}
+      }
       <Toaster />
     </main>
   )

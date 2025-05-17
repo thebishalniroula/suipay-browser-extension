@@ -19,7 +19,9 @@ const HomePage: PageComponent = (props) => {
         >
           Create New Wallet
         </Button>
-        <Button variant="secondary">Import Seed Phrase</Button>
+        <Button variant="secondary" onClick={() => props.setPage('import-wallet')}>
+          Import Seed Phrase
+        </Button>
       </div>
     </div>
   )

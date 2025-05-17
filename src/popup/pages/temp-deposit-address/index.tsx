@@ -31,7 +31,7 @@ const TempDepositAddressPage: PageComponent = (props) => {
 
   return (
     <div className="px-3 flex flex-col gap-4">
-      <span className="text-[12px] text-[#ADC8DF] capitalize fixed right-2">{status}</span>
+      {/* <span className="text-[12px] text-[#ADC8DF] capitalize fixed right-2">{status}</span> */}
       <Header
         title="Deposit"
         withBackButton
@@ -76,7 +76,7 @@ const InfoBoxWithCountdown = ({ expiresAt }: { expiresAt: string }) => {
   const countdown = useCountDown(expiresAt)
   return (
     <InfoBox
-      title={`Valid for ${countdown.data ?? '00:00'} minutes`}
+      title={`Valid for ${countdown.data ?? '05:00'} minutes`}
       description="This is a temporary address that sends funds to your smart contract wallet."
     />
   )

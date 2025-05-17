@@ -27,7 +27,7 @@ const useWSDepositAddress = () => {
 
     socketRef.current.onmessage = (event) => {
       console.log('Received message:', event.data)
-      setMessages((prev) => [...prev, JSON.parse(event.data)])
+      setMessages((prev) => [...prev, JSON.parse(event.data ?? '{}')])
     }
 
     socketRef.current.onerror = (error) => {
