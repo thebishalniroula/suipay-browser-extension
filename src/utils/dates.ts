@@ -1,4 +1,4 @@
-import { addSeconds } from 'date-fns'
+import { addSeconds, differenceInMinutes, differenceInSeconds } from 'date-fns'
 
 /**
  * Returns a Date object that is the current time plus the given number of seconds.
@@ -44,5 +44,15 @@ export function getRecurringInterval(date: Date): string {
   }
 
   const days = differenceInDays(later, earlier)
-  return `every ${days} day${days === 1 ? '' : 's'}`
+  if (days >= 1) {
+    return `every ${days} day${days === 1 ? '' : 's'}`
+  }
+
+  const minutes = differenceInMinutes(later, earlier)
+  if (minutes >= 1) {
+    return `every ${minutes} minute${minutes === 1 ? '' : 's'}`
+  }
+
+  const seconds = differenceInSeconds(later, earlier)
+  return `every ${seconds} second${seconds === 1 ? '' : 's'}`
 }
