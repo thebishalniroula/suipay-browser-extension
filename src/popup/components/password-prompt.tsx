@@ -3,6 +3,7 @@ import { Button } from './button'
 import Input from './input'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import toast from 'react-hot-toast'
 
 export type PasswordPromptProps = {
   onClose?: () => void
@@ -20,7 +21,12 @@ const PasswordPrompt = (props: PasswordPromptProps) => {
   })
 
   const onSubmit: SubmitHandler<PasswordForm> = ({ password }) => {
-    props.onSubmit(password)
+    try {
+      props.onSubmit(password)
+    } catch (error) {
+      console.log(error)
+      toast.error('Invalid password')
+    }
   }
 
   return (

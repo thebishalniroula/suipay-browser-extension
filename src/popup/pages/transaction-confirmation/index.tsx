@@ -19,6 +19,7 @@ const ConfirmationPage = ({ productId, refId }: { productId: string; refId: stri
       })
       console.log(res)
       toast.success('Payment made successfully')
+      window.close()
     } catch (error) {
       console.log(error)
       toast.error('Error making payment')

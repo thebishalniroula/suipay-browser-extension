@@ -47,7 +47,7 @@ const useGetTransactionHistory = (address: string) => {
       const res = await getTransactionHistory(address, walletData?.plain.accessToken ?? '')
       return res.data
     },
-    enabled: !!address || !!walletData?.plain.accessToken,
+    enabled: !!address && !!walletData?.plain.accessToken,
   })
 }
 

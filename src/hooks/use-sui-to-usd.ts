@@ -8,6 +8,8 @@ const useSuiToUSD = (sui: number) => {
     queryFn: async () => {
       return data ? (sui * data).toFixed(2) : '...'
     },
+    staleTime: Infinity,
+    enabled: !!data,
   })
 }
 

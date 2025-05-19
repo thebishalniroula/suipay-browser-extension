@@ -48,7 +48,7 @@ const useGetBalance = (address: string) => {
         balanceInUSD: suiPrice ? Number(suiPrice * res.data.balance).toFixed(2) : '...',
       }
     },
-    enabled: !!address,
+    enabled: !!address && !!suiPrice,
   })
 }
 

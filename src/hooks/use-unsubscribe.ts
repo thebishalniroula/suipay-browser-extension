@@ -7,6 +7,7 @@ import { Transaction } from '@mysten/sui/transactions'
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519'
 import { useDecryptSecretsStore } from '../store/secrets'
 import { useSuiClient } from '@mysten/dapp-kit'
+import { IndividualActiveSubscriptionRegistry, PackageId } from '../const/packages'
 
 type UnsubscribeProductParams = {
   signature: string
@@ -19,6 +20,13 @@ const unsubscribeProduct = async ({ accessToken, ...params }: UnsubscribeProduct
       Authorization: `Bearer ${accessToken}`,
     },
   })
+  return res.data
+}
+
+type CreateCancelSubscriptionTxn = {
+  productId: string
+  paymentIntent: string
+  productRegistry: string
 }
 
 const useUnsubscribe = () => {
@@ -26,8 +34,8 @@ const useUnsubscribe = () => {
   const privateKey = useDecryptSecretsStore((state) => state.privateKey)
   const suiClient = useSuiClient()
   return useMutation({
-    mutationFn: async (params: { productId: string }) => {
-      const txn = createCancelSubscriptionTxn()
+    mutationFn: async (params: CreateCancelSubscriptionTxn) => {
+      const txn = createCancelSubscriptionTxn(params)
 
       const keypair = Ed25519Keypair.fromSecretKey(privateKey)
       txn.setSender(keypair.toSuiAddress())
@@ -48,8 +56,16 @@ const useUnsubscribe = () => {
 
 export default useUnsubscribe
 
-const createCancelSubscriptionTxn = () => {
+const createCancelSubscriptionTxn = (params: CreateCancelSubscriptionTxn) => {
   const txn = new Transaction()
-  // Do more stuff here
+  txn.moveCall({
+    target: `${PackageId}::payment::unsubscribeFromProduct`,
+    arguments: [
+      txn.object(params.productId),
+      txn.object(params.paymentIntent),
+      txn.object(params.productRegistry),
+      txn.object(IndividualActiveSubscriptionRegistry),
+    ],
+  })
   return txn
 }

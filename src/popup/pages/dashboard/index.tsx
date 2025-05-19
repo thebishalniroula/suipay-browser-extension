@@ -93,7 +93,7 @@ const TransactionItem = (props: { transaction: Transaction }) => {
 
           {props.transaction.timestamp && (
             <p className="text-sm text-[#ADC8DF] font-medium ">
-              {format(new Date(+props.transaction.timestamp / 1_000_00), 'MMM dd, yyyy')}
+              {format(new Date(+props.transaction.timestamp), 'MMM dd, yyyy')}
             </p>
           )}
         </div>

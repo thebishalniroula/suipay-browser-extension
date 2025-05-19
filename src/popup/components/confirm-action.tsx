@@ -6,6 +6,7 @@ export type ConfirmActionProps = {
   description: string
   onSubmit: () => void
   onClose: () => void
+  isLoading?: boolean
 }
 const ConfirmAction = (props: ConfirmActionProps) => {
   return (
@@ -17,11 +18,23 @@ const ConfirmAction = (props: ConfirmActionProps) => {
           <p className="font-light text-[#ADC8DF] leading-[1.2] text-sm">{props.description}</p>
         </div>
         <div className="flex gap-2 w-full">
-          <Button variant="secondary" size="md" onClick={props.onClose} className="flex-1">
+          <Button
+            disabled={props.isLoading}
+            variant="secondary"
+            size="md"
+            onClick={props.onClose}
+            className="flex-1"
+          >
             Not Now
           </Button>
-          <Button variant="primary" size="md" onClick={props.onSubmit} className="flex-1">
-            Confirm
+          <Button
+            disabled={props.isLoading}
+            variant="primary"
+            size="md"
+            onClick={props.onSubmit}
+            className="flex-1"
+          >
+            {props.isLoading ? 'Confirming...' : 'Confirm'}
           </Button>
         </div>
       </div>
