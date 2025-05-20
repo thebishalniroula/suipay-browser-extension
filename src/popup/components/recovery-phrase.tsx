@@ -39,9 +39,9 @@ const RecoveryPhrase = (props: RecoveryPhraseProps) => {
         </div>
         <div
           onClick={handleCopy}
-          className="bg-[#7772F833] text-white rounded-2xl p-4 text-base font-medium text-center cursor-pointer w-40 mx-auto"
+          className="bg-[#7772F833] text-white rounded-2xl p-4 text-base font-medium text-center cursor-pointer w-50 mx-auto"
         >
-          Copy Address
+          Copy recovery phrase
         </div>
         {props.handleContinue && (
           <Button variant="primary" onClick={props.handleContinue} className="mt-auto">
