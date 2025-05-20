@@ -31,7 +31,7 @@ const RecoveryPhrase = (props: RecoveryPhraseProps) => {
           {props.phrase.split(' ').map((word, index) => (
             <div
               key={index}
-              className="border border-white/25 rounded-[10px] px-3 text-center text-white h-[42px] flex items-center"
+              className="border border-white/25 rounded-[10px] px-3 text-center text-white h-[42px] flex items-center text-[14px]"
             >
               {index + 1}. {word}
             </div>
