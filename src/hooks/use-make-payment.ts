@@ -16,10 +16,7 @@ const createMakePaymentTxn = (params: {
   refId: string
   productSubscribersRegistry: string
 }): Transaction => {
-  console.log(params)
-
   const txn = new Transaction()
-
   txn.moveCall({
     target: `${PackageId}::payment::makePayment`,
     arguments: [
@@ -28,7 +25,7 @@ const createMakePaymentTxn = (params: {
       txn.object(params.productOwnerScwAddress),
       txn.object(params.productSubscribersRegistry),
       txn.object(IndividualActiveSubscriptionRegistry),
-      txn.object(params.refId),
+      txn.pure.string(params.refId),
       txn.object(Clock),
     ],
   })
@@ -62,6 +59,7 @@ const useMakePayment = () => {
       refId: string
       productSubscribersRegistry: string
     }) => {
+      console.log('token', walletData?.plain.accessToken)
       const txn = createMakePaymentTxn({
         productId: params.productId,
         productOwnerScwAddress: params.productOwnerScwAddress,

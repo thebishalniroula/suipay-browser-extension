@@ -11,16 +11,16 @@ export default defineManifest({
   manifest_version: 3,
   // Defines icons used in the extension across different contexts and sizes (browser toolbar, Chrome Web Store, etc.).
   icons: {
-    16: 'img/logo-16.png',
-    32: 'img/logo-32.png',
-    48: 'img/logo-48.png',
-    128: 'img/logo-128.png',
+    16: 'img/logo.png',
+    32: 'img/logo.png',
+    48: 'img/logo.png',
+    128: 'img/logo.png',
   },
 
   // Defines the extension's browser action (i.e., the popup that appears when you click the extension icon).
   action: {
     default_popup: 'popup.html',
-    default_icon: 'img/logo-48.png',
+    default_icon: 'img/logo.png',
   },
 
   // Specifies the page to be shown in Chrome’s extension settings ("Options" link).
@@ -51,7 +51,7 @@ export default defineManifest({
   // Makes resources like images, scripts, or styles accessible to web pages via a public URL. Without this, web pages can't access your extension’s internal files.
   web_accessible_resources: [
     {
-      resources: ['img/logo-16.png', 'img/logo-32.png', 'img/logo-48.png', 'img/logo-128.png'],
+      resources: ['img/logo.png'],
       matches: [],
     },
   ],
