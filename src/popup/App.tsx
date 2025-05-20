@@ -18,6 +18,7 @@ import { useDecryptSecretsStore } from '../store/secrets'
 import PasswordPrompt from './components/password-prompt'
 import { z } from 'zod'
 import ImportWallet from './pages/import-wallet'
+import { cn } from '../utils/cn'
 
 const pages = [
   'home',
@@ -96,12 +97,15 @@ const App = () => {
 
   const { privateKey, setPrivateKey } = useDecryptSecretsStore((state) => state)
 
-  // if (productData.success && !walletData?.plain) {
-  //   setPage('create-wallet')
-  // }
+  const showTransactionConfirmationPage = productData.data?.product_id && productData.data.ref_id
 
   return (
-    <main className="w-[360px] min-h-[600px] bg-[#020304] text-white">
+    <main
+      className={cn(
+        'w-[360px] min-h-[600px] bg-[#020304] text-white',
+        showTransactionConfirmationPage && 'w-full',
+      )}
+    >
       {!privateKey && walletData && (
         <PasswordPrompt
           onSubmit={(password) => {
@@ -116,8 +120,11 @@ const App = () => {
       {!!walletData && (
         <Background className="fixed -bottom-[10%] z-[0] pointer-events-none" width={400} />
       )}
-      {productData.data?.product_id && productData.data.ref_id && (
-        <ConfirmationPage productId={productData.data.product_id} refId={productData.data.ref_id} />
+      {showTransactionConfirmationPage && (
+        <ConfirmationPage
+          productId={productData?.data?.product_id!}
+          refId={productData?.data?.ref_id!}
+        />
       )}
       {
         <>

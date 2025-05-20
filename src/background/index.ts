@@ -3,8 +3,10 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     chrome.windows.create({
       url: chrome.runtime.getURL('popup.html') + '?action=' + msg.payload.action,
       type: 'popup',
-      width: 360,
-      height: 600,
+      left: 0,
+      top: 0,
+      width: screen.availWidth,
+      height: screen.availHeight,
     })
   }
 })

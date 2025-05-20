@@ -16,7 +16,6 @@ import { format } from 'date-fns'
 const Balance = () => {
   const [data] = useStorage<WalletEssentials | null>(STORAGE_KEYS.WALLET_ESSENTIALS, null)
   const { data: balance } = useGetBalance(data?.plain.address ?? '')
-  console.log(balance, data?.plain)
   return (
     <div className="pt-10 pb-5 text-center flex flex-col gap-3">
       <h2 className="text-xl text-[#8D9BA8] leading-[1]">Balance</h2>

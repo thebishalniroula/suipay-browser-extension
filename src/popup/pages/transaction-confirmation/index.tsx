@@ -30,8 +30,12 @@ const ConfirmationPage = ({ productId, refId }: { productId: string; refId: stri
     ? getFutureDateBySeconds(data?.product.recurringPeriod)
     : null
 
+  const handleCancel = async () => {
+    window.close()
+  }
+
   return (
-    <div className="w-[360px] flex flex-col justify-between h-[100vh] p-5">
+    <div className="flex flex-col justify-between h-[100vh] p-5 max-w-[360px] mx-auto">
       <div className="flex flex-col gap-2">
         {/* Logos */}
         <div className="relative h-[70px] w-[70px]">
